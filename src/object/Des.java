@@ -1,7 +1,7 @@
-package src;
+package src.object;
 
-class Des{
-    int value;
+public class Des{
+    public int value;
     boolean isLocked;
 
     public Des(){
@@ -9,7 +9,7 @@ class Des{
         this.isLocked = false;
     }
 
-     void reset(){
+    void reset(){
         this.value = 0;
         this.isLocked = false;
     }
@@ -25,6 +25,12 @@ class Des{
     public void roll(){
         if(!this.isLocked){
             this.value = (int)(Math.random() * 6) + 1;
+        }
+    }
+
+    public void roll(Des[] des){
+        for(Des d : des){
+            d.roll();
         }
     }
 
