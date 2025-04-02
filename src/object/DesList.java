@@ -22,6 +22,25 @@ public class DesList extends Des {
         }
         return total;
     }
+    
+        
+    public int getNbValue(int values){
+        int total = 0;
+        for(int i = 0; i < this.size; i++){
+            if(this.desList.get(i).value == values){
+                total++;
+            }
+        }
+        return total;
+    }
+
+    public int getValue(){
+        int total = 0;
+        for(int i = 0; i < this.size; i++){
+            total += this.desList.get(i).value;
+        }
+        return total;
+    }
 
     public int getSize() {
         return this.size;
