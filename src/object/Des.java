@@ -1,15 +1,10 @@
-package src.object;
+package jeu.object;
 
 public class Des{
     public int value;
     boolean isLocked;
 
     public Des(){
-        this.value = 0;
-        this.isLocked = false;
-    }
-
-    void reset(){
         this.value = 0;
         this.isLocked = false;
     }

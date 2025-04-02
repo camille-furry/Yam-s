@@ -1,4 +1,4 @@
-package src.object;
+package jeu.object;
 import java.util.ArrayList;
 
 public class DesList extends Des {

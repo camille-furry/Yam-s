@@ -1,1 +1,1 @@
-java -cp bin src.Yams
+java -cp bin jeu.Yams

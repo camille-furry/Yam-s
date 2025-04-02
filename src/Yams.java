@@ -1,15 +1,21 @@
-package src;
+package jeu;
 
-import src.object.DesList;
-import src.object.Fiche;
+import jeu.object.DesList;
+import jeu.object.Fiche;
+import javax.swing.*;
+
 
 class Yams{
     public static void main(String[] args) {
         DesList desList = new DesList(5);
+        JFrame frame = new JFrame("Yams");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800, 800);
         desList.roll();
         Fiche fiche = new Fiche();
         boolean roundOver = false;
         boolean valueOver = false;
+        JLabel desLabel = new JLabel();
         while (!fiche.isFull()) {
             roundOver = false;
             unlockAll(desList);
@@ -17,9 +23,11 @@ class Yams{
                 valueOver = false;
                 desList.roll();
                 while(!valueOver){
-                    System.out.println("Current roll (" + (i+1) + "): " + desList);
-                    System.out.println(fiche);
-                    System.out.print("\nEntry values: ");
+                    desLabel.setText("Current roll (" + (i+1) + "): " + desList);
+                    desLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                    frame.getContentPane().add(desLabel, java.awt.BorderLayout.SOUTH);
+                    frame.setVisible(true);
+                    fiche.afficher(frame);
                     String input = System.console().readLine();
                     if(isDiceChoice(input) && i<2){
                         for(int n =0; n < 5; n++){

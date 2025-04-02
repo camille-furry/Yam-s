@@ -1,5 +1,7 @@
 // Ensure the correct package path for the Des class
-package src.object;
+package jeu.object;
+
+import javax.swing.*;
 
 public class Fiche{
     int un;
@@ -342,79 +344,78 @@ public class Fiche{
     public String toString(){
         String fiche = "";
         if(this.un != -1){
-            fiche += "|Un             | " + this.un + " |\n";
+            fiche += "Un              " + this.un + " \n";
         }else{
-            fiche += "|Un             |   |\n";
+            fiche += "Un                \n";
         }
         if(this.deux != -1){
-            fiche += "|Deux           | " + this.deux + " |\n";
+            fiche += "Deux            " + this.deux + " \n";
         }else{
-            fiche += "|Deux           |   |\n";
+            fiche += "Deux              \n";
         }
         if(this.trois != -1){
-            fiche += "|Trois          | " + this.trois + " |\n";
+            fiche += "Trois           " + this.trois + " \n";
         }else{
-            fiche += "|Trois          |   |\n";
+            fiche += "Trois             \n";
         }
         if(this.quatre != -1){
-            fiche += "|Quatre         | " + this.quatre + " |\n";
+            fiche += "Quatre          " + this.quatre + " \n";
         }else{
-            fiche += "|Quatre         |   |\n";
+            fiche += "Quatre            \n";
         }
         if(this.cinq != -1){
-            fiche += "|Cinq           | " + this.cinq + " |\n";
+            fiche += "Cinq            " + this.cinq + " \n";
         }else{
-            fiche += "|Cinq           |   |\n";
+            fiche += "Cinq              \n";
         }
         if(this.six != -1){
-            fiche += "|Six            | " + this.six + " |\n";
+            fiche += "Six             " + this.six + " \n";
         }else{
-            fiche += "|Six            |   |\n";
+            fiche += "Six               \n";
         }
         if(this.prime != -1){
-            fiche += "|Prime          | " + this.prime + " |\n";
+            fiche += "Prime           " + this.prime + " \n";
         }else{
-            fiche += "|Prime          |   |\n";
+            fiche += "Prime             \n";
         }
         if(this.brelan != -1){
-            fiche += "|Brelan         | " + this.brelan + " |\n";
+            fiche += "Brelan          " + this.brelan + " \n";
         }else{
-            fiche += "|Brelan         |   |\n";
+            fiche += "Brelan            \n";
         }
         if(this.carre != -1){
-            fiche += "|Carre          | " + this.carre + " |\n";
+            fiche += "Carre           " + this.carre + " \n";
         }else{
-            fiche += "|Carre          |   |\n";
+            fiche += "Carre             \n";
         }
         if(this.full != -1){
-            fiche += "|Full           | " + this.full + " |\n";
+            fiche += "Full            " + this.full + " \n";
         }else{
-            fiche += "|Full           |   |\n";
+            fiche += "Full              \n";
         }
         if(this.petiteSuite != -1){
-            fiche += "|PetiteSuite    | " + this.petiteSuite + " |\n";
+            fiche += "PetiteSuite     " + this.petiteSuite + " \n";
         }else{
-            fiche += "|PetiteSuite    |   |\n";
+            fiche += "PetiteSuite       \n";
         }
         if(this.grandeSuite != -1){
-            fiche += "|GrandeSuite    | " + this.grandeSuite + " |\n";
+            fiche += "GrandeSuite     " + this.grandeSuite + " \n";
         }else{
-            fiche += "|GrandeSuite    |   |\n";
+            fiche += "GrandeSuite       \n";
         }
         if(this.yams != -1){
-            fiche += "|Yams           | " + this.yams + " |\n";
+            fiche += "Yams            " + this.yams + " \n";
         }else{
-            fiche += "|Yams           |   |\n";
+            fiche += "Yams              \n";
         }
         if(this.chance != -1){
-            fiche += "|Chance         | " + this.chance + " |\n";
+            fiche += "Chance          " + this.chance + " \n";
         }else{
-            fiche += "|Chance         |   |\n";
+            fiche += "Chance            \n";
         }
 
-        fiche += "|totalSuperieur | " + this.totalSuperieur + " |\n";
-        fiche += "|totalInferieur | " + this.totalInferieur + " |\n";
-        fiche += "|total          | " + this.total + " |\n";
+        fiche += "totalSuperieur  " + this.totalSuperieur + " \n";
+        fiche += "totalInferieur  " + this.totalInferieur + " \n";
         return fiche;
     }
 
@@ -437,5 +438,12 @@ public class Fiche{
             return false;
         }
         return true;
+    }
+
+    public void afficher(JFrame frame){
+        JLabel label = new JLabel("<html>" + this.toString().replace("\n", "<br>") + "</html>");
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        frame.getContentPane().add(label, java.awt.BorderLayout.CENTER);
+        frame.setVisible(true);
     }
 }
