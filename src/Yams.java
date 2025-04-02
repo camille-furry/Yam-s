@@ -5,71 +5,102 @@ import jeu.object.Fiche;
 import javax.swing.*;
 
 
-class Yams{
+class Yams extends JFrame{
+    boolean roundOver = false;
+    DesList desList = new DesList(5);
+    Fiche fiche = new Fiche();
+    String input;
+    int currentRound = 0;
+
+    public Yams() {
+        super("Yams Game");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 300);
+        setVisible(true);
+
+        JButton rollDice = new JButton("Roll Dice");
+        Jbutton entryButton = new JButton("Enter Choice");
+        JPanel panel = new JPanel();
+        panel.add(rollDice);
+        panel.add(entryButton);
+        setContentPane(panel);
+
+        entryButton.addActionListener(new ActionListener){
+            public void actionPerformed(ActionEvent e) {
+                boolean finishAction = false;
+                while(!finishAction){
+                    this.input = JOptionPane.showInputDialog(this, "Enter your choice (x for lock, o for unlock or choice a value):");
+                    if (inputEntry()){
+                        finishAction = true;
+                    };
+                }
+            };
+        }
+
+        rollDice.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                this.desList.roll();
+                JOptionPane.showMessageDialog(null, "Dice rolled: " + desList);
+            }
+        });
+    }
+
+
     public static void main(String[] args) {
-        DesList desList = new DesList(5);
-        JFrame frame = new JFrame("Yams");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 800);
-        desList.roll();
-        Fiche fiche = new Fiche();
-        boolean roundOver = false;
-        boolean valueOver = false;
-        JLabel desLabel = new JLabel();
+
+        this.desList.roll();
         while (!fiche.isFull()) {
-            roundOver = false;
+            this.roundOver = false;
             unlockAll(desList);
             for(int i = 0; i < 3 && !roundOver; i++){
-                valueOver = false;
-                desList.roll();
+                this.valueOver = false;
+                this.desList.roll();
                 while(!valueOver){
-                    desLabel.setText("Current roll (" + (i+1) + "): " + desList);
-                    desLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                    frame.getContentPane().add(desLabel, java.awt.BorderLayout.SOUTH);
-                    frame.setVisible(true);
-                    fiche.afficher(frame);
-                    String input = System.console().readLine();
-                    if(isDiceChoice(input) && i<2){
-                        for(int n =0; n < 5; n++){
-                            if(input.charAt(n) == 'x'){
-                                desList.lock(n);
-                                valueOver = true;
-                            }else{
-                                desList.unlock(n);
-                                valueOver = true;
-                            }
-                        }
-                    }else if(i<2){
-                        if(entryValues(desList, fiche, input)){
-                            System.out.println("You have used the entry: " + input);
-                            roundOver = true;
-                            valueOver = true;
-                        }else{
-                            System.out.println("Invalid entry, please try again.");
-                        }
-                    }else{
-                        while(!entryValues(desList, fiche, input)){
-                            System.out.print("\nPlease enter a valid entry: ");
-                            input = System.console().readLine();
-                        }
-                        System.out.println("You have used the entry: " + input);
-                        roundOver = true;
-                        valueOver = true;
-                    }
+                    this.input = System.console().readLine();
+                    inputEntry(i);
             }
         }
         if(fiche.bottomIsFull()){
             fiche.updateTotalSuperieur();
-            fiche.usePrime(desList);
+            fiche.usePrime(this.desList);
             fiche.updateTotalSuperieur();
         }if(fiche.topIsFull()){
             fiche.updateTotalSuperieur();
         }
         }
         fiche.updateTotal();
-        System.out.println(fiche);
+        System.out.println(this.fiche);
         System.out.println("Game over, your total score is: " + fiche.getTotal());
     }
+
+    private static boolean inputEntry(){
+        if(isDiceChoice(this.input) && this.currentRound<2){
+            for(int i =0; i < 5; i++){
+                if(this.input.charAt(i) == 'x'){
+                    this.desList.lock(i);
+                    this.valueOver = true;
+                }else{
+                    this.desList.unlock(i);
+                    this.valueOver = true;
+                }
+            }
+        }else if(currentRound<2){
+            if(entryValues(this.desList, this.fiche, this.input)){
+                System.out.println("You have used the entry: " + this.input);
+                return true;
+            }else{
+                System.out.println("Invalid entry, please try again.");
+                return false;
+            }
+        }else{
+            while(!entryValues(this.desList, this.fiche, this.input)){
+                System.out.print("\nPlease enter a valid entry: ");
+                return false;
+            }
+            System.out.println("You have used the entry: " + this.input);
+            return true;
+        }
+}
     
     private static void unlockAll(DesList desList){
         for(int i = 0;i < 5;i++){
